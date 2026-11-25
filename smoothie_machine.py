@@ -38,6 +38,14 @@ def print_report(supplies, money):
         print(f"{item.capitalize()}: {amount}")
     print(f"Money: ${money:.2f}")
 
+def has_enough(ingredients, supplies):
+    for item, needed in ingredients.items():
+        if needed > supplies[item]:
+            print(f"Sorry, there is not enough {item}.")
+            return False
+    return True
+
+
 def main():
     supplies = dict(STARTING_SUPPLIES)
     money = 0.0
@@ -53,7 +61,9 @@ def main():
         elif choice == "report":
             print_report(supplies, money)
         elif choice in MENU:
-            print(f"You picked {choice}.")
+            drink = MENU[choice]
+            if has_enough(drink["ingredients"], supplies):
+                print("Supplies are fine.")
         else:
             print("That is not on the menu.")
 
