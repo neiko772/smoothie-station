@@ -46,6 +46,32 @@ def has_enough(ingredients, supplies):
     return True
 
 
+
+
+def ask_count(money, name):
+    """Ask how many of one kind of money, until the answer is a whole numeber 0 or more."""
+    while True:
+        answer = input(f"How many {name}? ")
+        try:
+            count = int(answer)
+            if count >= 0:
+                return count
+            print("The count cannot be negative.")
+        except ValueError: 
+            print("Type a whole number, like 2.")
+
+def take_payment():
+    print("Please insert money.")
+    total = 0.0
+
+    for name, value in MONEY_VALUES.items():
+        count = ask_count(name)
+        total += count * value
+
+    return round(total, 2)
+
+
+
 def main():
     supplies = dict(STARTING_SUPPLIES)
     money = 0.0
